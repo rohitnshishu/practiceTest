@@ -18,10 +18,7 @@ public class FindAverageSalaryApp {
                 employees.stream().collect(Collectors.groupingBy(
                         Employee::getOfficeLocation, Collectors.groupingByConcurrent(Employee::getDesignation, averagingDouble(Employee::getSalary))));
 
-        Iterator<Map.Entry<String, ConcurrentMap<String, Double>>> itr = emplAvgSalaryByOfficeLocAndDesgn.entrySet().iterator();
-
-        while(itr.hasNext()) {
-            Map.Entry<String, ConcurrentMap<String, Double>> entry = itr.next();
+        for (Map.Entry<String, ConcurrentMap<String, Double>> entry : emplAvgSalaryByOfficeLocAndDesgn.entrySet()) {
             for (ConcurrentMap.Entry<String, Double> innerEntry : entry.getValue().entrySet()) {
                 System.out.println(entry.getKey() + " --> " + innerEntry.getKey() + " --> " + innerEntry.getValue());
             }
